@@ -3,6 +3,26 @@
     ViewBag.Title = "Show";
 }
 
+<head>
+    <style>
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .dellink {
+            color: #dd1111;
+        }
+
+    </style>
+</head>
+
+<nav>
+    <a class="navlink" href="/Teacher/List">Back to Teachers</a>
+    <a class="dellink" href="/Teacher/DeleteConfirm/@Model.TeacherId">Delete</a>
+</nav>
 
 <h2>@Model.TeacherFname @Model.TeacherLname</h2>
 <h3>Information</h3>

@@ -1,0 +1,45 @@
+﻿
+@model CumulutiveProject1.Models.Teacher
+
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+
+<head>
+    <style>
+
+        nav {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .confirmDelete {
+            color: red;
+        }
+
+    </style>
+</head>
+
+
+
+
+<h2>Are you sure you want to delete @Model.TeacherFname? @Model.TeacherLname?</h2>
+<p>This action cannot be undone.</p>
+
+<nav>
+    <a class="navlink" href="/Teacher/Show/@Model.TeacherId">Cancel</a>
+
+    <form method="POST" action="/Teacher/Delete/@Model.TeacherId">
+        <button class="navlink confirmDelete">
+            Confirm Delete
+        </button>
+    </form>
+        
+</nav>
+
+
