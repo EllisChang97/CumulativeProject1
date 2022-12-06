@@ -1,11 +1,15 @@
-﻿
-@model IEnumerable<CumulutiveProject1.Models.Teacher>
+﻿@model IEnumerable<CumulutiveProject1.Models.Teacher>
 
-@{
+@{ 
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+
+<nav>
+    <a class="navlink" href="/Teacher/New">New Teacher</a>
+</nav>
+
+<h2>List of all teachers</h2>
 
 
 <form method="GET" action="/Teacher/List">
@@ -13,11 +17,15 @@
     <input type="submit"  value ="Search" />
 </form>
 
-@foreach (var teacher in Model)
-{
+<ol>
+    @foreach (CumulutiveProject1.Models.Teacher Teacher in Model)
+    {
+        <li>
+            <h4><a href="/Teacher/Show/@Teacher.TeacherId">@Teacher.TeacherFname @Teacher.TeacherLname</a></h4>
+        </li>
+    }
+</ol>
 
-    <div><a href="/Teacher/Show/@teacher.TeacherId">@teacher.TeacherFname @teacher.TeacherLname</a></div>
 
-}
 
 

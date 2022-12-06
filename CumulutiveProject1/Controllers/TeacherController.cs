@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -53,5 +54,38 @@ namespace CumulutiveProject1.Controllers
 
         }
 
+        //GET : /Teacher/New
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        //POST : /Teacher/Create
+        public ActionResult Create(string TeacherFname, string TeacherLname, string EmployeeNumber, DateTime HireDate, decimal Salary)
+        
+        // ^ I don't think this is right bc the data types should match the form inputs from the New.cshtml form
+        { 
+            //Identify that this method is running
+            //Identify the inputs provided from the form 
+
+            Debug.WriteLine("I have accessed the Create Method!");
+            Debug.WriteLine(TeacherFname);
+            Debug.WriteLine(TeacherLname);
+            Debug.WriteLine(EmployeeNumber);
+            Debug.WriteLine(HireDate);
+            Debug.WriteLine(Salary);
+
+            Teacher NewTeacher = new Teacher();
+            NewTeacher.TeacherFname = TeacherFname;
+            NewTeacher.TeacherLname = TeacherLname;
+            NewTeacher.EmployeeNumber = EmployeeNumber;
+            NewTeacher.HireDate = HireDate;
+            NewTeacher.Salary = Salary;
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.AddTeacher(NewTeacher);
+
+            return RedirectToAction("List");
+        }
     }
 }

@@ -25,8 +25,8 @@ namespace CumulutiveProject1.Controllers
         /// </returns>
 
         [HttpGet]
-        [Route("api/TeacherData/ListTeachers/{SearchKey?}")]
-        public IEnumerable<Teacher> ListTeachers(string SearchKey=null)
+        [Route("api/TeacherData/List/{SearchKey?}")]
+        public IEnumerable<Teacher> ListTeachers(string SearchKey)
         {
             //Create an instance of a connection 
             MySqlConnection Conn = School.AccessDatabase();
@@ -37,12 +37,11 @@ namespace CumulutiveProject1.Controllers
             //Establish a new command (query) for our database
             MySqlCommand cmd = Conn.CreateCommand();
 
+            string query = "select * from teachers where teacherfname like @key or teacherlname like @key";
             //SQL Query
-            cmd.CommandText = "Select * from Teachers where lower(teacherfname) like lower('%@key%') " +
-                "or lower(teacherlname) like lower('%@key%') or lower(concat(teacherfname, ' ', teacherlname)) " +
-                "like lower('%@key%')";
+            cmd.CommandText = query;
 
-            cmd.Parameters.AddWithValue("key", "%" + SearchKey + "%");
+            cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
             cmd.Prepare();
 
             //Gather Result Set of Query into a variable
@@ -163,5 +162,31 @@ namespace CumulutiveProject1.Controllers
             
         }
 
+
+        [HttpPost]
+        public void AddTeacher([FromBody]Teacher NewTeacher)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Open the connection between server and database 
+            Conn.Open();
+
+            //Establish a new command for our database 
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "INSERT INTO teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) VALUES (@TeacherFname,@TeacherLname,@EmployeeNumber,@HireDate,@Salary)";
+            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@HireDate", NewTeacher.HireDate);
+            cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+        }
     }
 }
