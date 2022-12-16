@@ -7,11 +7,28 @@
     <style>
 
         nav {
-            display: flex;
-            justify-content: space-between;
+            
+            /*justify-content: space-between;*/
             margin-top: 30px;
+            
         }
-        
+
+       
+
+        #stubborn-link1 {
+            font-size: 14px;
+            margin-top: 0px;
+            float: left;
+            margin-right:2em;
+        }
+
+        #stubborn-link2 {
+            font-size: 14px;
+            margin-top: 0px;
+            float: left;
+            margin-right: 2em;
+        }
+
         .dellink {
             color: #dd1111;
         }
@@ -19,10 +36,7 @@
     </style>
 </head>
 
-<nav>
-    <a class="navlink" href="/Teacher/List">Back to Teachers</a>
-    <a class="dellink" href="/Teacher/DeleteConfirm/@Model.TeacherId">Delete</a>
-</nav>
+
 
 <h2>@Model.TeacherFname @Model.TeacherLname</h2>
 <h3>Information</h3>
@@ -35,4 +49,9 @@
 </ul>
 
 
-
+<nav>
+    <a id="stubborn-link1" class="navlink" href="/Teacher/List">Back to Teachers</a>
+    <a class="dellink" href="/Teacher/DeleteConfirm/@Model.TeacherId">Delete</a>
+    <a id="stubborn-link2" class="navlink" href="/Teacher/Update/@Model.TeacherId">Update</a>
+</nav>
+    
